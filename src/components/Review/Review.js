@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 // eslint-disable-next-line
 import { getDatabaseCart, removeFromDatabaseCart, processOrder } from '../../utilities/databaseManager';
-import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import './Review.css';
 import Cart from '../Cart/Cart';
@@ -12,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
-    // eslint-disable-next-line
+    // eslint-disable-next-line 
     const [orderPlaced, setOrderPlaced] = useState(false);
     const history = useHistory();
 
@@ -34,12 +33,14 @@ const Review = () => {
     useEffect(() => {
         const savedData = getDatabaseCart();
         const productKeys = Object.keys(savedData);
-        const cartProducts = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key);
-            product.quantity = savedData[key];
-            return product;
+
+        fetch('http://localhost:5000/productsByKeys', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(productKeys)
         })
-        setCart(cartProducts);
+            .then(res => res.json())
+            .then(data => setCart(data))
     }, []);
 
     let thankYou;
