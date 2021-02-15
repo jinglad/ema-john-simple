@@ -34,7 +34,7 @@ const Review = () => {
         const savedData = getDatabaseCart();
         const productKeys = Object.keys(savedData);
 
-        fetch('http://localhost:5000/productsByKeys', {
+        fetch('https://jinglad-ema-john-simple-backend.glitch.me/productsByKeys', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(productKeys)

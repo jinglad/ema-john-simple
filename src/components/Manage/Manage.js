@@ -3,7 +3,7 @@ import React from 'react';
 const Manage = () => {
     const handleAddProduct = () => {
         const product = {};
-        fetch('http://localhost:5000/addProduct', {
+        fetch('https://jinglad-ema-john-simple-backend.glitch.me/addProduct', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify(product)
